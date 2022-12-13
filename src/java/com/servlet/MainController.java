@@ -29,6 +29,8 @@ public class MainController extends HttpServlet {
     private static final String CREATE_SERVLET = "CreateCourseServlet";
     private static final String DELETE = "Delete";
     private static final String DELETE_SERVLET = "DeleteCourseServlet";
+    private static final String LOGOUT = "Logout";
+    private static final String LOGOUT_SERVLET = "LogoutServlet";
     private static final String UPDATE = "Update";
     private static final String UPDATE_SERVLET = "UpdateCourseServlet";
     private static final String DELETE_CATEGORY = "DeleteCategory";
@@ -58,6 +60,9 @@ public class MainController extends HttpServlet {
             String action = request.getParameter("action");
             if (LOGIN.equals(action)) {
                 url = LOGIN_SERVLET;
+            }
+            if (LOGOUT.equals(action)) {
+                url = LOGOUT_SERVLET;
             }
             if (SEARCH.equals(action)) {
                 url = SEARCH_SERVLET;

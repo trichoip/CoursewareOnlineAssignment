@@ -4,26 +4,29 @@
  */
 package com.servlet;
 
+import com.category.CategoryDAO;
+import com.category.CategoryDTO;
 import com.couseware.CousewareDAO;
 import com.couseware.CousewareDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name = "GetCourseByCategoryServlet", urlPatterns = {"/GetCourseByCategoryServlet"})
-public class GetCourseByCategoryServlet extends HttpServlet {
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
+public class LogoutServlet extends HttpServlet {
 
-    private static final String ERROR = "home.jsp";
-    private static final String SUCCESS = "home.jsp";
+    private static final String ERROR = "login.jsp";
+    private static final String SUCCESS = "login.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,16 +42,11 @@ public class GetCourseByCategoryServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String id = request.getParameter("id");
-            CousewareDAO dao = new CousewareDAO();
-            List<CousewareDTO> listCourse = dao.findByCategory_Id(Long.valueOf(id));
-            if (listCourse.isEmpty()) {
-                request.setAttribute("MESSAGE", "Not found");
-            }
-            request.setAttribute("LIST_COURSE", listCourse);
+            HttpSession session = request.getSession();
+            session.invalidate();
             url = SUCCESS;
         } catch (Exception e) {
-            log("Error in SearchCourseServlet: " + e.toString());
+            log("Error in CreateCourseServlet: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
